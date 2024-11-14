@@ -1,9 +1,10 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-const url = 'https://trackings.post.japanpost.jp/services/srv/search/direct?reqCodeNo1=711053275295&searchKind=S002&locale=en';  // Replace with your target URL
 
+let trackId =711042406841
 
+const url = `https://trackings.post.japanpost.jp/services/srv/search/direct?reqCodeNo1=${trackId}&searchKind=S002&locale=en`; 
 axios.get(url)
   .then(response => {
     const html = response.data;
@@ -18,26 +19,26 @@ axios.get(url)
 
     //   console.log(content.toLocaleLowerCase().indexOf("processing at delivery post office"));
 
-    //   const finalDeliveryIndex = content.toLocaleLowerCase().indexOf("final delivery");
+      const finalDeliveryIndex = content.toLocaleLowerCase().indexOf("final delivery");
 
-    //   if (finalDeliveryIndex > 1) {
+      if (finalDeliveryIndex > 1) {
           
-    //       const getDeliveryTime = content.slice(finalDeliveryIndex - 20, finalDeliveryIndex);
-          
-    //     console.log(getDeliveryTime) 
-    //   }
-
-
-      const returnDeliveryIndex = content.toLocaleLowerCase().indexOf("returned to sender");
-
-      console.log(returnDeliveryIndex)
-
-      if (returnDeliveryIndex > 1) {
-          
-          const getDeliveryTime = content.slice(returnDeliveryIndex - 20, returnDeliveryIndex);
+          const getDeliveryTime = content.slice(finalDeliveryIndex - 20, finalDeliveryIndex);
           
         console.log(getDeliveryTime) 
       }
+
+
+    //   const returnDeliveryIndex = content.toLocaleLowerCase().indexOf("returned to sender");
+
+    //   console.log(returnDeliveryIndex)
+
+    //   if (returnDeliveryIndex > 1) {
+          
+    //       const getDeliveryTime = content.slice(returnDeliveryIndex - 20, returnDeliveryIndex);
+          
+    //     console.log(getDeliveryTime) 
+    //   }
 
       
 
